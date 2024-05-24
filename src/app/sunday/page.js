@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { MdOutlineInfo } from "react-icons/md";
-import { IoIosArrowDropright } from "react-icons/io";
+import { IoIosArrowDropleft } from "react-icons/io";
 import Link from 'next/link';
 
 export default function Home() {
@@ -29,7 +29,7 @@ export default function Home() {
 
 
   useEffect(() => {
-    fetch('https://develop.dailyoperation.uk/schedule/wp-json/wp/v2/posts?_embed&per_page=20')
+    fetch('https://develop.dailyoperation.uk/schedule/wp-json/wp/v2/posts?_embed')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -77,27 +77,25 @@ export default function Home() {
     setHoverStates(newHoverStates);
   };
 
-  const filteredArtistDataWPSaturday = artistDataWP.filter(artist => artist.categories[0] === 3);
+  const filteredArtistDataWPSunday = artistDataWP.filter(artist => artist.categories[0] === 4);
 
   
 
   return (
     <>
-    <div className="bg-black min-h-screen">
+    <div className="bg-black min-h-screen ">
     <div className="mx-auto pt-4 text-2xl w-72  text-gray-400 flex justify-between">
+    
+    <Link href="./" >
+    <IoIosArrowDropleft />
+    </Link>
+    <h1 className="text-xl text-gray-400 font-bold text-center">Sunday</h1>
     <Link href="/information" >
     <MdOutlineInfo />
-    </Link>
-    <h1 className="text-xl text-gray-400 font-bold text-center">Saturday</h1>
-    
-    <Link href="/sunday" >
-    <IoIosArrowDropright />
     </Link>
     </div>
     <h2 className="text-xs font-bold text-gray-400 text-center">August 24th-25th</h2>
     <h2 className="text-xs text-gray-400 text-center">Orchard Square - Sheffield</h2>
-
-    
     {/* <h2 className="text-gray-300 font-bold text-center">Artists</h2> */}
 
     {!isLoaded ? (
@@ -105,7 +103,7 @@ export default function Home() {
     ) : (
     
       <div className="flex flex-col items-center justify-center pt-2 ">
-        {filteredArtistDataWPSaturday.slice().reverse().map((artistName, index) => (
+        {filteredArtistDataWPSunday.slice().reverse().map((artistName, index) => (
 
           
           <div key={index}>
@@ -129,7 +127,7 @@ export default function Home() {
             animate={{
               height: hoverStates[index] ? 288 : 40,
               width: hoverStates[index] ? 320 : 300,
-              opacity: hoverStates[index] ? 1 : 0.7,
+              opacity: hoverStates[index] ? 1 : 0.6,
               alignSelf: "center",
               // darken: hoverStates[index] ? 0 : 0.5,
             }}
